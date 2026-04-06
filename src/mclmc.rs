@@ -12,7 +12,7 @@
 //! `num_steps = round(f · L / ε).max(1)` leapfrog steps:
 //!
 //! 1. **Partial momentum refresh** (half Langevin step with `half_step = ε/2`):
-//!    - `ν = sqrt((exp(2·half_step/L) − 1) / n)`,  `n = dim`
+//!    - `ν = sqrt((exp(2*ε/L) − 1) / n)`,  `n = dim`
 //!    - `p ← (p + ν·z) / ‖p + ν·z‖`,  `z ~ N(0, I)`
 //! 2. **`num_steps` ESH leapfrog steps** — the end state is the draw.
 //! 3. **Partial momentum refresh** again (second half, same ν).

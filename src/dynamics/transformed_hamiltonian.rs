@@ -825,10 +825,10 @@ impl<M: Math, T: Transformation<M>> Hamiltonian<M> for TransformedHamiltonian<M,
         match self.kinetic_energy_kind {
             KineticEnergyKind::Microcanonical => {
                 // Isokinetic Langevin (OU on the unit sphere):
-                // ν = sqrt((exp(2·half_step/L) − 1) / n),  n = dim
+                // ν = sqrt((exp(step_size/L) − 1) / n),  n = dim
                 // p ← (p + ν·z) / ‖p + ν·z‖,  z ~ N(0, I)
                 let n = math.dim() as f64;
-                let nu = ((2.0 * half_step / momentum_decoherence_length).exp_m1() / n).sqrt();
+                let nu = ((2.0 * self.step_size * factor / momentum_decoherence_length).exp_m1() / n).sqrt();
                 math.axpy(&noise, &mut point.velocity, nu);
                 math.array_normalize(&mut point.velocity);
             }
